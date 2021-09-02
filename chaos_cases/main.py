@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import itertools
+import csv
 
 
 class Chaos():
@@ -25,8 +26,14 @@ class Chaos():
     def _symbol(self):
         return "!@#\\/"
 
+    def ret_file(self, file, params, retlist):
+        with open(file, 'w', encoding='utf-8', newline="") as f:
+            csv_writer = csv.writer(f)
+            csv_writer.writerow(params)
+            csv_writer.writerows(retlist)
+
     @classmethod
-    def chaos(cls, params, custom=None, type='product'):
+    def chaos(cls, params, custom=None, type='product', file=None):
         """
         :param params:参数列表 ["name", "age","sex","like"]
         :param custom:自定义参数值 {"name": "zhangsan","like":"qiu"}
@@ -35,6 +42,7 @@ class Chaos():
                     permutations 排列　　（不放回抽样排列）
                     combinations 组合,没有重复　　（不放回抽样组合）
                     combinations_with_replacement 组合,有重复　　（有放回抽样组合）
+        :param file: 要生成用例的文件，如：ret.csv
         :return:
         """
         clist = []
@@ -58,6 +66,8 @@ class Chaos():
         for k, v in custom.items():
             for i in retlist:
                 i.insert(params.index(k), v)
+        if file:
+            Chaos().ret_file('ret.csv', params, retlist)
 
         return params, retlist
 
@@ -65,4 +75,4 @@ class Chaos():
 if __name__ == '__main__':
     params = ["name", "age", "sex", "like"]
     custom = {"name": "zhangsan", "like": "qiu"}
-    print(Chaos.chaos(params, custom, type="product"))
+    print(Chaos.chaos(params, custom, type="product", file='ret.csv'))

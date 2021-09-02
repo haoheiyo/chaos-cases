@@ -2,4 +2,4 @@
 # -*- coding: utf-8 -*-
 from .api import chaos
 
-name = "chaos-cases"
+name = "chaos_cases"
