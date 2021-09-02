@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
   name="chaos-cases",
-  version="0.0.2",
+  version="0.0.3",
   author="haohaiyo",
   author_email="admin@b7.com",
   description="生成一些通用的测试用例",
